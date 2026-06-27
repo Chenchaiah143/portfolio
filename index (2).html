@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thatha Chenchaiah | ECE Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050d1a;
+    --bg2: #0d1b2e;
+    --card: #0f2035;
+    --card2: #142844;
+    --cyan: #00d4ff;
+    --cyan2: #00a8cc;
+    --green: #39e5a0;
+    --purple: #7c5cbf;
+    --text: #e2eaf8;
+    --muted: #7a93b8;
+    --border: rgba(0,212,255,0.15);
+    --glow: rgba(0,212,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(5,13,26,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* PCB circuit background */
+  #circuit-canvas {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--cyan);
+  }
+
+  .hero-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+  .hero-name span { color: var(--cyan); }
+
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    font-size: 1rem;
+    color: #9db4d4;
+    line-height: 1.7;
+    margin-bottom: 2.4rem;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 0.75rem 1.8rem;
+    background: var(--cyan);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+
+  .btn-outline {
+    padding: 0.75rem 1.8rem;
+    background: transparent;
+    color: var(--cyan);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--cyan);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(0,212,255,0.08); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 3rem; }
+  section:nth-child(even) { background: var(--bg2); }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-label::before { content: '> '; opacity: 0.6; }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .about-text p { font-size: 0.97rem; color: #9db4d4; line-height: 1.8; margin-bottom: 1rem; }
+  .about-details { display: flex; flex-direction: column; gap: 1rem; }
+  .detail-row {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--card);
+    padding: 1rem 1.2rem;
+    border-left: 2px solid var(--cyan);
+  }
+  .detail-icon { font-size: 1.2rem; }
+  .detail-label { font-size: 0.73rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .detail-val { font-size: 0.92rem; color: var(--text); font-weight: 500; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+  .skill-category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .skill-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+  }
+  .tag.green {
+    background: rgba(57,229,160,0.08);
+    border-color: rgba(57,229,160,0.2);
+    color: var(--green);
+  }
+  .tag.purple {
+    background: rgba(124,92,191,0.1);
+    border-color: rgba(124,92,191,0.3);
+    color: #a98de8;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .project-card:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-4px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .project-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+  .project-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .stack-item {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    background: rgba(255,255,255,0.05);
+    color: #9db4d4;
+    border: 1px solid rgba(255,255,255,0.08);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .project-badge {
+    display: inline-block;
+    font-size: 0.67rem;
+    padding: 0.2rem 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+  }
+  .badge-vlsi { background: rgba(124,92,191,0.15); color: #a98de8; border: 1px solid rgba(124,92,191,0.3); }
+  .badge-qa   { background: rgba(57,229,160,0.1);  color: var(--green); border: 1px solid rgba(57,229,160,0.25); }
+  .badge-web  { background: rgba(0,212,255,0.08);  color: var(--cyan);  border: 1px solid rgba(0,212,255,0.2); }
+
+  /* ── INTERNSHIPS ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1px 1fr;
+    gap: 0 2rem;
+    padding-bottom: 2.5rem;
+  }
+  .timeline-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+    padding-top: 0.15rem;
+    line-height: 1.4;
+  }
+  .timeline-line {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .timeline-dot {
+    width: 10px; height: 10px; flex-shrink: 0;
+    background: var(--cyan);
+    border: 2px solid var(--bg);
+    border-radius: 50%;
+    margin-top: 0.2rem;
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  .timeline-connector {
+    flex: 1; width: 1px;
+    background: var(--border);
+    margin-top: 4px;
+  }
+  .timeline-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s;
+  }
+  .timeline-content:hover { border-color: rgba(0,212,255,0.3); }
+  .timeline-org {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .timeline-content h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-content p { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+  .timeline-content ul { font-size: 0.87rem; color: var(--muted); padding-left: 1.2rem; line-height: 1.8; }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cert-card:hover { border-color: rgba(57,229,160,0.4); transform: translateY(-2px); }
+  .cert-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(57,229,160,0.1);
+    font-size: 1.2rem;
+  }
+  .cert-issuer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .cert-card h3 { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 0.2rem; }
+  .cert-year { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .contact-text p { font-size: 0.97rem; color: #9db4d4; line-height: 1.8; margin-bottom: 1.5rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover { border-color: var(--cyan); background: var(--card2); }
+  .contact-link-icon { font-size: 1.1rem; width: 28px; text-align: center; }
+  .contact-link-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+  .contact-link-val { font-size: 0.88rem; color: var(--text); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 90px 1px 1fr; gap: 0 1rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">TC.init()</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#internships">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="circuit-canvas"></canvas>
+  <div style="position:relative;z-index:1;">
+    <div class="hero-tag">B.Tech ECE · 3rd Year · ACET Gudur</div>
+    <h1 class="hero-name">Thatha<br><span>Chenchaiah</span></h1>
+    <p class="hero-title">Electronics & Communication Engineer</p>
+    <p class="hero-desc">
+      Building at the intersection of hardware design and software quality. Specialising in VLSI design, HDL programming, and test automation — from RTL-to-GDSII flows to Selenium-driven QA frameworks.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">3rd</div>
+        <div class="stat-label">Year B.Tech</div>
+      </div>
+      <div>
+        <div class="stat-val">5+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div>
+        <div class="stat-val">2</div>
+        <div class="stat-label">Domains</div>
+      </div>
+      <div>
+        <div class="stat-val">ECE</div>
+        <div class="stat-label">Specialisation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">profile</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a third-year Electronics and Communication Engineering student at Audisankara College of Engineering & Technology, Gudur, Andhra Pradesh. My academic journey has taken me deep into VLSI design — from Boolean logic and K-maps to OpenLANE RTL-to-GDSII flows and FPGA architecture.</p>
+      <p>Alongside hardware, I've developed a strong foundation in software quality assurance, working with Selenium WebDriver, TestNG, and the Page Object Model for Java-based automation testing. I believe robust engineering requires both: systems designed right, and systems tested right.</p>
+      <p>When I'm not at a workstation, I'm following IPL cricket, Telugu cinema, or exploring the local culture of Kavali — grounded, curious, and always learning.</p>
+    </div>
+    <div class="about-details">
+      <div class="detail-row">
+        <div class="detail-icon">🎓</div>
+        <div>
+          <div class="detail-label">Institution</div>
+          <div class="detail-val">ACET, Gudur (Andhra Pradesh)</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">📡</div>
+        <div>
+          <div class="detail-label">Branch</div>
+          <div class="detail-val">Electronics & Communication Engineering</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">📍</div>
+        <div>
+          <div class="detail-label">Location</div>
+          <div class="detail-val">Kavali, Andhra Pradesh, India</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">🔬</div>
+        <div>
+          <div class="detail-label">Focus Areas</div>
+          <div class="detail-val">VLSI Design · QA Automation · Embedded Systems</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">📅</div>
+        <div>
+          <div class="detail-label">Regulation</div>
+          <div class="detail-val">R23 · Expected Graduation 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">technical_skills</div>
+  <h2 class="section-title">Technical Stack</h2>
+  <p class="section-sub">Hardware design tools, HDLs, EDA platforms, and software testing frameworks I work with.</p>
+  <div class="skills-grid reveal">
+
+    <div class="skill-card">
+      <div class="skill-category">hardware design</div>
+      <h3>VLSI & Digital Logic</h3>
+      <div class="skill-tags">
+        <span class="tag">Verilog HDL</span>
+        <span class="tag">VHDL</span>
+        <span class="tag">RTL Design</span>
+        <span class="tag">CMOS Logic</span>
+        <span class="tag">Boolean Algebra</span>
+        <span class="tag">K-Maps</span>
+        <span class="tag">Stick Diagrams</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">eda tools</div>
+      <h3>EDA & Simulation</h3>
+      <div class="skill-tags">
+        <span class="tag">Intel Quartus Prime</span>
+        <span class="tag">ModelSim</span>
+        <span class="tag">Multisim</span>
+        <span class="tag">OpenLANE</span>
+        <span class="tag">Sky130 PDK</span>
+        <span class="tag">MATLAB</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">qa automation</div>
+      <h3>Test Automation</h3>
+      <div class="skill-tags">
+        <span class="tag green">Selenium WebDriver</span>
+        <span class="tag green">TestNG</span>
+        <span class="tag green">Page Object Model</span>
+        <span class="tag green">XPath / CSS</span>
+        <span class="tag green">Java (Core)</span>
+        <span class="tag green">Maven</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">embedded & iot</div>
+      <h3>Embedded Systems</h3>
+      <div class="skill-tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">Microcontrollers</span>
+        <span class="tag">FPGA (Xilinx/Intel)</span>
+        <span class="tag">IoT Sensors</span>
+        <span class="tag">I2C / SPI</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">software</div>
+      <h3>Programming & Web</h3>
+      <div class="skill-tags">
+        <span class="tag purple">Java</span>
+        <span class="tag purple">JavaScript</span>
+        <span class="tag purple">Python</span>
+        <span class="tag purple">Node.js</span>
+        <span class="tag purple">HTML/CSS</span>
+        <span class="tag purple">Express.js</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">signals & systems</div>
+      <h3>Signal Processing</h3>
+      <div class="skill-tags">
+        <span class="tag">DSP Fundamentals</span>
+        <span class="tag">DFT / FFT (DIF & DIT)</span>
+        <span class="tag">Z-Transform</span>
+        <span class="tag">VLSI Signal Processing</span>
+        <span class="tag">Filter Design</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">projects</div>
+  <h2 class="section-title">What I've Built</h2>
+  <p class="section-sub">A mix of hardware design experiments, automation frameworks, and full-stack applications.</p>
+  <div class="projects-grid reveal">
+
+    <div class="project-card">
+      <div class="project-num">P.001</div>
+      <span class="project-badge badge-vlsi">VLSI</span>
+      <h3>RTL-to-GDSII Flow (OpenLANE)</h3>
+      <p>Explored the complete physical design flow using OpenLANE with the Sky130 open-source PDK — from RTL synthesis to GDSII layout, covering floorplanning, placement, CTS, and routing.</p>
+      <div class="project-stack">
+        <span class="stack-item">OpenLANE</span>
+        <span class="stack-item">Sky130 PDK</span>
+        <span class="stack-item">Verilog</span>
+        <span class="stack-item">Magic VLSI</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">P.002</div>
+      <span class="project-badge badge-qa">QA Automation</span>
+      <h3>OrangeHRM Login Test Suite</h3>
+      <p>Built a full POM-based Selenium + TestNG test suite targeting OrangeHRM demo portal. Implemented explicit waits, XPath locators, and parameterized data-driven tests with proper reporting.</p>
+      <div class="project-stack">
+        <span class="stack-item">Selenium WebDriver</span>
+        <span class="stack-item">Java</span>
+        <span class="stack-item">TestNG</span>
+        <span class="stack-item">POM</span>
+        <span class="stack-item">Maven</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">P.003</div>
+      <span class="project-badge badge-qa">QA Automation</span>
+      <h3>Facebook Signup Automation</h3>
+      <p>Automated Facebook's signup flow including ARIA-role custom dropdowns (DOB fields, gender selector) using JavascriptExecutor and the Actions class — handling non-standard DOM elements.</p>
+      <div class="project-stack">
+        <span class="stack-item">Selenium</span>
+        <span class="stack-item">JavascriptExecutor</span>
+        <span class="stack-item">Actions Class</span>
+        <span class="stack-item">Java</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">P.004</div>
+      <span class="project-badge badge-qa">QA Tool</span>
+      <h3>Interview Prep Quiz (50 Qs)</h3>
+      <p>Designed an interactive browser-based quiz covering Selenium, Manual Testing, TestNG, and Core Java — 50 questions with real-time scoring, timer, and performance analytics.</p>
+      <div class="project-stack">
+        <span class="stack-item">HTML</span>
+        <span class="stack-item">Vanilla JS</span>
+        <span class="stack-item">CSS</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">P.005</div>
+      <span class="project-badge badge-web">Web / Full-Stack</span>
+      <h3>Bluemoon Dhaba Website</h3>
+      <p>Built a complete restaurant web application for a South Indian food concept — menu pages, reservation flow, and backend APIs using Node.js and Express with clean responsive UI.</p>
+      <div class="project-stack">
+        <span class="stack-item">Node.js</span>
+        <span class="stack-item">Express.js</span>
+        <span class="stack-item">HTML/CSS</span>
+        <span class="stack-item">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">P.006</div>
+      <span class="project-badge badge-web">Web + AI</span>
+      <h3>Verdura — AI Chatbot Plant Page</h3>
+      <p>Created a plants-themed webpage with an integrated Claude API chatbot for plant care guidance. Demonstrates API integration, prompt engineering, and frontend design simultaneously.</p>
+      <div class="project-stack">
+        <span class="stack-item">HTML/CSS/JS</span>
+        <span class="stack-item">Claude API</span>
+        <span class="stack-item">REST APIs</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INTERNSHIPS / EXPERIENCE -->
+<section id="internships">
+  <div class="section-label">experience</div>
+  <h2 class="section-title">Internships & Training</h2>
+  <p class="section-sub">Hands-on industry exposure in VLSI design and signal processing.</p>
+  <div class="timeline reveal">
+
+    <div class="timeline-item">
+      <div class="timeline-date">2023<br>4 Weeks</div>
+      <div class="timeline-line">
+        <div class="timeline-dot"></div>
+        <div class="timeline-connector"></div>
+      </div>
+      <div>
+        <div class="timeline-content">
+          <div class="timeline-org">Sri Shasha Prayathi Technologies</div>
+          <h3>VLSI Signal Processing with FPGA — Internship + Certification</h3>
+          <p>Underwent structured training in VLSI signal processing fundamentals using FPGA hardware platforms. Covered RTL implementation of DSP blocks, simulation with ModelSim, and synthesis with Quartus Prime. Earned a certification upon completion.</p>
+          <div style="margin-top:0.8rem;" class="project-stack">
+            <span class="stack-item">FPGA</span>
+            <span class="stack-item">Verilog</span>
+            <span class="stack-item">ModelSim</span>
+            <span class="stack-item">Quartus Prime</span>
+            <span class="stack-item">DSP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2024<br>Self-directed</div>
+      <div class="timeline-line">
+        <div class="timeline-dot"></div>
+        <div class="timeline-connector"></div>
+      </div>
+      <div>
+        <div class="timeline-content">
+          <div class="timeline-org">Independent Project</div>
+          <h3>QA Automation Engineer (Self-Training)</h3>
+          <p>Completed an intensive self-directed study programme in software quality assurance — covering Selenium WebDriver architecture, Java OOP fundamentals, TestNG lifecycle, Page Object Model, and Selenium Grid. Built and debugged multiple real test suites against live applications.</p>
+          <div style="margin-top:0.8rem;" class="project-stack">
+            <span class="stack-item">Selenium</span>
+            <span class="stack-item">Java</span>
+            <span class="stack-item">TestNG</span>
+            <span class="stack-item">POM</span>
+            <span class="stack-item">Selenium Grid</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">Ongoing</div>
+      <div class="timeline-line">
+        <div class="timeline-dot" style="background:var(--green);box-shadow:0 0 8px var(--green);"></div>
+      </div>
+      <div>
+        <div class="timeline-content" style="border-color:rgba(57,229,160,0.25);">
+          <div class="timeline-org" style="color:var(--green);">Actively Seeking</div>
+          <h3>VLSI / Embedded / QA Internship</h3>
+          <p>Open to internship opportunities in VLSI backend design (Maven Silicon, VLSIGuru, similar), embedded systems, or QA automation. Available for both remote and on-site positions in Andhra Pradesh region.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">certifications</div>
+  <h2 class="section-title">Certifications & Achievements</h2>
+  <p class="section-sub">Formal recognitions earned through coursework, competitions, and professional training.</p>
+  <div class="certs-grid reveal">
+
+    <div class="cert-card">
+      <div class="cert-icon">🏆</div>
+      <div>
+        <div class="cert-issuer">Sri Shasha Prayathi Technologies</div>
+        <h3>VLSI Signal Processing with FPGA</h3>
+        <div class="cert-year">2023 · 4-Week Programme</div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">🎓</div>
+      <div>
+        <div class="cert-issuer">NPTEL · IIT Network</div>
+        <h3>NPTEL Online Certification</h3>
+        <div class="cert-year">Engineering Course · Proctored Exam</div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">🥇</div>
+      <div>
+        <div class="cert-issuer">Inter-College Competition</div>
+        <h3>Technical Competition Prize</h3>
+        <div class="cert-year">Electronics / Engineering Event</div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">📜</div>
+      <div>
+        <div class="cert-issuer">BIEAP / AP EAPCET</div>
+        <h3>Engineering Entrance Qualification</h3>
+        <div class="cert-year">AP EAPCET · State Level</div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">⚙️</div>
+      <div>
+        <div class="cert-issuer">Self-Certified · In Progress</div>
+        <h3>Selenium WebDriver + Java Automation</h3>
+        <div class="cert-year">Interview-Ready Level · 2024</div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">📡</div>
+      <div>
+        <div class="cert-issuer">ACET, Gudur · R23 Regulation</div>
+        <h3>Embedded Systems & IoT</h3>
+        <div class="cert-year">Subject 23A04424A · Academic</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">contact</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <div class="contact-grid reveal">
+    <div class="contact-text">
+      <p>I'm actively looking for internship opportunities in VLSI design, embedded systems, or QA automation. If you're hiring, collaborating, or want to exchange ideas about engineering — reach out.</p>
+      <p>Based in Andhra Pradesh, open to remote and on-site opportunities across India.</p>
+      <a href="mailto:thatha@example.com" class="btn-primary" style="display:inline-block;margin-top:0.5rem;">Send a Message</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:thatha@example.com" class="contact-link">
+        <div class="contact-link-icon">✉️</div>
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-val">thatha@example.com</div>
+        </div>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-link">
+        <div class="contact-link-icon">💼</div>
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-val">linkedin.com/in/thatha-chenchaiah</div>
+        </div>
+      </a>
+      <a href="https://github.com" target="_blank" class="contact-link">
+        <div class="contact-link-icon">🐙</div>
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-val">github.com/thatha-ec</div>
+        </div>
+      </a>
+      <div class="contact-link" style="cursor:default;">
+        <div class="contact-link-icon">📍</div>
+        <div>
+          <div class="contact-link-label">Location</div>
+          <div class="contact-link-val">Kavali, Andhra Pradesh, India</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2024 Thatha Chenchaiah · ECE Engineer</span>
+  <span>Built with precision · ACET Gudur</span>
+</footer>
+
+<script>
+/* ── PCB CIRCUIT CANVAS ── */
+const canvas = document.getElementById('circuit-canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const nodes = [];
+const GRID = 60;
+
+function initNodes() {
+  nodes.length = 0;
+  const cols = Math.ceil(canvas.width / GRID) + 1;
+  const rows = Math.ceil(canvas.height / GRID) + 1;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (Math.random() < 0.35) {
+        nodes.push({ x: c * GRID, y: r * GRID });
+      }
+    }
+  }
+}
+
+const traces = [];
+function initTraces() {
+  traces.length = 0;
+  for (let i = 0; i < nodes.length; i++) {
+    const n = nodes[i];
+    const candidates = nodes.filter(m =>
+      m !== n &&
+      (Math.abs(m.x - n.x) === GRID && m.y === n.y ||
+       Math.abs(m.y - n.y) === GRID && m.x === n.x)
+    );
+    if (candidates.length > 0 && Math.random() < 0.55) {
+      const t = candidates[Math.floor(Math.random() * candidates.length)];
+      traces.push({ x1: n.x, y1: n.y, x2: t.x, y2: t.y, progress: 0, speed: 0.004 + Math.random() * 0.008 });
+    }
+  }
+}
+
+initNodes();
+initTraces();
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // traces
+  traces.forEach(tr => {
+    tr.progress = Math.min(1, tr.progress + tr.speed);
+    const px = tr.x1 + (tr.x2 - tr.x1) * tr.progress;
+    const py = tr.y1 + (tr.y2 - tr.y1) * tr.progress;
+    ctx.beginPath();
+    ctx.moveTo(tr.x1, tr.y1);
+    ctx.lineTo(px, py);
+    ctx.strokeStyle = '#00d4ff';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    if (tr.progress >= 1) tr.progress = 0;
+  });
+
+  // nodes
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,212,255,0.6)';
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
