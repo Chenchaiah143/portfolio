@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+import os
+
+html = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -125,60 +127,28 @@ section{padding:6rem 6%}
 .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--cyan),var(--purple),transparent)}
 .timeline-item{position:relative;margin-bottom:2.5rem}
 .timeline-dot{position:absolute;left:-2.4rem;top:0.3rem;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 10px rgba(0,212,255,0.5)}
-
-/* Clickable Cards Base Styles */
-.clickable-card {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  cursor: pointer;
-}
-.clickable-card::after {
-  content: '↗ View Certificate';
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: rgba(0,212,255,0.15);
-  color: var(--cyan);
-  font-size: 0.7rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
-  opacity: 0;
-  transition: var(--transition);
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600;
-  border: 1px solid rgba(0,212,255,0.3);
-  z-index: 10;
-}
-.clickable-card:hover::after {
-  opacity: 1;
-  transform: translateY(-2px);
-}
-a.cert-card { display: flex; } /* Preserve flex layout for cert cards */
-
-.timeline-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;backdrop-filter:blur(20px);transition:var(--transition); position: relative;}
+.timeline-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;backdrop-filter:blur(20px);transition:var(--transition)}
 .timeline-card:hover{border-color:var(--cyan);transform:translateX(6px)}
-.timeline-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.5rem; padding-right: 7rem;} /* Padding for hover badge */
+.timeline-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.5rem}
 .timeline-role{font-size:1rem;font-weight:700;color:var(--text)}
 .timeline-company{font-size:0.875rem;color:var(--cyan);font-weight:600;margin-bottom:0.25rem}
 .timeline-date{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);padding:0.2rem 0.6rem;border-radius:4px;white-space:nowrap;flex-shrink:0}
 .timeline-desc{color:var(--text-dim);font-size:0.875rem;line-height:1.7}
 #certifications{background:var(--bg2)}
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-.cert-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;backdrop-filter:blur(20px);transition:var(--transition);display:flex;gap:1rem;align-items:flex-start; position: relative;}
+.cert-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;backdrop-filter:blur(20px);transition:var(--transition);display:flex;gap:1rem;align-items:flex-start}
 .cert-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 0 20px rgba(251,191,36,0.15)}
 .cert-icon{width:44px;height:44px;border-radius:10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-.cert-title{font-size:0.9rem;font-weight:700;margin-bottom:0.25rem; padding-right: 6rem;}
+.cert-title{font-size:0.9rem;font-weight:700;margin-bottom:0.25rem}
 .cert-issuer{font-size:0.8rem;color:var(--text-dim)}
 #achievements{background:var(--bg)}
 .achievements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
 .achievement-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;backdrop-filter:blur(20px);transition:var(--transition);position:relative;overflow:hidden}
-.achievement-card::before{content:attr(data-prize);position:absolute;top:1rem;right:1rem;font-size:1.8rem;opacity:0.12}
 .achievement-card:hover{border-color:var(--gold);transform:translateY(-4px)}
 .prize-badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.3rem 0.8rem;border-radius:50px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem}
 .prize-1{background:rgba(251,191,36,0.15);color:var(--gold);border:1px solid rgba(251,191,36,0.3)}
 .prize-2{background:rgba(148,163,184,0.15);color:#94a3b8;border:1px solid rgba(148,163,184,0.3)}
-.achievement-title{font-size:0.9rem;font-weight:700;margin-bottom:0.25rem; padding-right: 6rem;}
+.achievement-title{font-size:0.9rem;font-weight:700;margin-bottom:0.25rem}
 .achievement-venue{font-size:0.8rem;color:var(--text-dim);line-height:1.5}
 #contact{background:var(--bg2)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
@@ -433,24 +403,24 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 6%;t
   <div class="timeline">
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <a href="assets/certificates/skilldzire_internship.pdf" target="_blank" class="timeline-card clickable-card">
+      <div class="timeline-card">
         <div class="timeline-header"><div><div class="timeline-role">Advanced VLSI and Chip Design Intern</div><div class="timeline-company">SkillDzire Technologies Pvt. Ltd.</div></div><span class="timeline-date">Recent</span></div>
         <p class="timeline-desc">In-depth training on advanced VLSI concepts and chip design methodologies. Covered RTL design, synthesis flows, and modern chip design practices used in the semiconductor industry.</p>
-      </a>
+      </div>
     </div>
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <a href="assets/certificates/sri_shasha_internship.pdf" target="_blank" class="timeline-card clickable-card">
+      <div class="timeline-card">
         <div class="timeline-header"><div><div class="timeline-role">VLSI Signal Processing with FPGA Intern</div><div class="timeline-company">Sri Shasha Prayathi Technologies</div></div><span class="timeline-date">Recent</span></div>
         <p class="timeline-desc">Hands-on FPGA-based signal processing internship. Implemented digital signal processing algorithms in Verilog HDL and deployed on FPGA development boards.</p>
-      </a>
+      </div>
     </div>
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <a href="assets/certificates/daikin_training.pdf" target="_blank" class="timeline-card clickable-card">
+      <div class="timeline-card">
         <div class="timeline-header"><div><div class="timeline-role">Industrial Training - HVAC Systems</div><div class="timeline-company">Daikin Airconditioning India Pvt. Ltd.</div></div><span class="timeline-date">Dec 2025</span></div>
         <p class="timeline-desc">HVAC Skill Enhancement Program - industrial exposure to Heating, Ventilation, and Air Conditioning systems, product training, and energy efficiency concepts at Daikin facilities.</p>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -461,12 +431,12 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 6%;t
     <div class="section-divider"></div>
   </div>
   <div class="cert-grid">
-    <a href="assets/certificates/hvac_daikin.pdf" target="_blank" class="cert-card reveal clickable-card"><div class="cert-icon">&#127981;</div><div><div class="cert-title">HVAC Skill Enhancement Program</div><div class="cert-issuer">Daikin Airconditioning India Pvt. Ltd. | Dec 2025</div></div></a>
-    <a href="assets/certificates/vlsi_fpga.pdf" target="_blank" class="cert-card reveal clickable-card"><div class="cert-icon">&#9889;</div><div><div class="cert-title">VLSI Signal Processing with FPGA</div><div class="cert-issuer">Sri Shasha Prayathi Technologies</div></div></a>
-    <a href="assets/certificates/vlsi_chip_design.pdf" target="_blank" class="cert-card reveal clickable-card"><div class="cert-icon">&#128300;</div><div><div class="cert-title">Advanced VLSI and Chip Design</div><div class="cert-issuer">SkillDzire Technologies Pvt. Ltd.</div></div></a>
-    <a href="assets/certificates/python_data_science.pdf" target="_blank" class="cert-card reveal clickable-card"><div class="cert-icon">&#128013;</div><div><div class="cert-title">Python for Data Science</div><div class="cert-issuer">NPTEL | IIT</div></div></a>
-    <a href="assets/certificates/computer_architecture.pdf" target="_blank" class="cert-card reveal clickable-card"><div class="cert-icon">&#128187;</div><div><div class="cert-title">Computer Architecture and Organization</div><div class="cert-issuer">NPTEL | IIT</div></div></a>
-    <a href="assets/certificates/google_cloud.pdf" target="_blank" class="cert-card reveal clickable-card"><div class="cert-icon">&#9925;</div><div><div class="cert-title">Google Cloud - Hack2skill</div><div class="cert-issuer">Google Cloud | Hack2skill</div></div></a>
+    <div class="cert-card reveal"><div class="cert-icon">&#127981;</div><div><div class="cert-title">HVAC Skill Enhancement Program</div><div class="cert-issuer">Daikin Airconditioning India Pvt. Ltd. | Dec 2025</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">&#9889;</div><div><div class="cert-title">VLSI Signal Processing with FPGA</div><div class="cert-issuer">Sri Shasha Prayathi Technologies</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">&#128300;</div><div><div class="cert-title">Advanced VLSI and Chip Design</div><div class="cert-issuer">SkillDzire Technologies Pvt. Ltd.</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">&#128013;</div><div><div class="cert-title">Python for Data Science</div><div class="cert-issuer">NPTEL | IIT</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">&#128187;</div><div><div class="cert-title">Computer Architecture and Organization</div><div class="cert-issuer">NPTEL | IIT</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">&#9925;</div><div><div class="cert-title">Google Cloud - Hack2skill</div><div class="cert-issuer">Google Cloud | Hack2skill</div></div></div>
   </div>
 </section>
 <section id="achievements">
@@ -476,10 +446,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 6%;t
     <div class="section-divider"></div>
   </div>
   <div class="achievements-grid">
-    <a href="assets/certificates/tech_quiz_1st.pdf" target="_blank" class="achievement-card reveal clickable-card"><span class="prize-badge prize-1">1st Prize</span><div class="achievement-title">Technical Quiz Competition</div><div class="achievement-venue">Geethanjali College of Engineering and Technology</div></a>
-    <a href="assets/certificates/circuit_debug_geethanjali.pdf" target="_blank" class="achievement-card reveal clickable-card"><span class="prize-badge prize-2">2nd Prize</span><div class="achievement-title">Circuit Debugging Competition</div><div class="achievement-venue">Geethanjali College of Engineering and Technology</div></a>
-    <a href="assets/certificates/circuit_debug_audisankara.pdf" target="_blank" class="achievement-card reveal clickable-card"><span class="prize-badge prize-2">2nd Prize</span><div class="achievement-title">Circuit Debugging Competition</div><div class="achievement-venue">Audisankara College of Engineering and Technology</div></a>
-    <a href="assets/certificates/quiz_st_anns.pdf" target="_blank" class="achievement-card reveal clickable-card"><span class="prize-badge prize-2">2nd Prize</span><div class="achievement-title">Quiz Competition</div><div class="achievement-venue">St. Ann's College of Engineering and Technology</div></a>
+    <div class="achievement-card reveal"><span class="prize-badge prize-1">1st Prize</span><div class="achievement-title">Technical Quiz Competition</div><div class="achievement-venue">Geethanjali College of Engineering and Technology</div></div>
+    <div class="achievement-card reveal"><span class="prize-badge prize-2">2nd Prize</span><div class="achievement-title">Circuit Debugging Competition</div><div class="achievement-venue">Geethanjali College of Engineering and Technology</div></div>
+    <div class="achievement-card reveal"><span class="prize-badge prize-2">2nd Prize</span><div class="achievement-title">Circuit Debugging Competition</div><div class="achievement-venue">Audisankara College of Engineering and Technology</div></div>
+    <div class="achievement-card reveal"><span class="prize-badge prize-2">2nd Prize</span><div class="achievement-title">Quiz Competition</div><div class="achievement-venue">St. Ann's College of Engineering and Technology</div></div>
   </div>
 </section>
 <section id="contact">
@@ -498,11 +468,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 6%;t
         <a href="https://github.com/Chenchaiah143" target="_blank" class="contact-link-item"><div class="contact-link-icon" style="background:rgba(255,255,255,0.05)">&#128025;</div><div class="contact-link-text"><strong>GitHub</strong><span>Chenchaiah143</span></div></a>
       </div>
     </div>
-    <form action="https://formsubmit.co/thathachenchaiah506@gmail.com" method="POST" class="contact-form reveal">
-      <div class="form-group"><label for="contact-name">Your Name</label><input type="text" name="name" id="contact-name" placeholder="John Doe" required/></div>
-      <div class="form-group"><label for="contact-email">Your Email</label><input type="email" name="email" id="contact-email" placeholder="john@example.com" required/></div>
-      <div class="form-group"><label for="contact-subject">Subject</label><input type="text" name="_subject" id="contact-subject" placeholder="Internship / Collaboration / Connect" required/></div>
-      <div class="form-group"><label for="contact-message">Message</label><textarea name="message" id="contact-message" placeholder="Write your message here..." required></textarea></div>
+    <form class="contact-form reveal" onsubmit="handleFormSubmit(event)">
+      <div class="form-group"><label for="contact-name">Your Name</label><input type="text" id="contact-name" placeholder="John Doe" required/></div>
+      <div class="form-group"><label for="contact-email">Your Email</label><input type="email" id="contact-email" placeholder="john@example.com" required/></div>
+      <div class="form-group"><label for="contact-subject">Subject</label><input type="text" id="contact-subject" placeholder="Internship / Collaboration / Connect" required/></div>
+      <div class="form-group"><label for="contact-message">Message</label><textarea id="contact-message" placeholder="Write your message here..." required></textarea></div>
       <button type="submit" class="form-submit" id="form-submit-btn"><span id="submit-text">Send Message</span></button>
     </form>
   </div>
@@ -546,8 +516,16 @@ var observer=new IntersectionObserver(function(entries){entries.forEach(function
 reveals.forEach(function(r){observer.observe(r);});
 })();
 window.addEventListener('scroll',function(){var nav=document.getElementById('navbar');nav.style.background=window.scrollY>60?'rgba(5,11,20,0.97)':'rgba(5,11,20,0.85)';});
-
+function handleFormSubmit(e){e.preventDefault();var btn=document.getElementById('form-submit-btn');var txt=document.getElementById('submit-text');btn.disabled=true;txt.textContent='Sending...';setTimeout(function(){txt.textContent='Message Sent!';setTimeout(function(){txt.textContent='Send Message';btn.disabled=false;e.target.reset();},2500);},1200);}
 document.getElementById('hamburger').addEventListener('click',function(){var links=document.querySelector('.nav-links');if(links.style.display==='flex'){links.style.display='none';}else{links.style.display='flex';links.style.flexDirection='column';links.style.position='absolute';links.style.top='70px';links.style.left='0';links.style.right='0';links.style.background='rgba(5,11,20,0.98)';links.style.padding='1.5rem';links.style.gap='1.25rem';links.style.borderBottom='1px solid rgba(0,212,255,0.15)';links.style.backdropFilter='blur(20px)';}});
 </script>
 </body>
-</html>
+</html>"""
+
+path = r'C:\Users\THATHA CHENCHAIAH\.gemini\antigravity\scratch\portfolio\index.html'
+os.makedirs(os.path.dirname(path), exist_ok=True)
+with open(path, 'w', encoding='utf-8') as f:
+    f.write(html)
+size = os.path.getsize(path)
+print(f'SUCCESS: Portfolio written to {path}')
+print(f'File size: {size} bytes ({size/1024:.1f} KB)')
